@@ -237,11 +237,11 @@ avg_price = pd.DataFrame(list(db.avg_price_genre.find()))
 avg_rating = pd.DataFrame(list(db.avg_rating_per_genre.find()))
 rating_dist = pd.DataFrame(list(db.rating_distribution.find()))
 
-avg_price
+avg_price = avg_price.drop_duplicates(subset='Genre', keep='first')
+avg_rating = avg_rating.drop_duplicates(subset='Genre', keep='first')
+rating_dist = rating_dist.drop_duplicates(subset='Rating', keep='first')
 
 avg_rating
-
-rating_dist
 
 st.title("Book Analysis Dashboard")
 
