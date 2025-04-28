@@ -214,7 +214,7 @@ plt.show()
 
 """# **5. Storing data on MongoDB & Streamlit**"""
 
-!pip install pymongo streamlit
+#!pip install pymongo streamlit
 
 import streamlit as st
 import pymongo
