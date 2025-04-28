@@ -1,0 +1,9 @@
+streamlit
+pymongo
+ssl
+requests
+BeautifulSoup
+pandas
+matplotlib
+re
+seaborn
