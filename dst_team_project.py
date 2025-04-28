@@ -136,6 +136,9 @@ plt.xlabel("Price")
 plt.grid(True)
 plt.show()
 
+# Renaming the price column to avoid issues in streamlit
+df = df.rename(columns={'Price (incl. tax)': 'Price including tax'})
+
 """# **3-4. Data Analysis and data visualization**
 
 **1. Average Price per Genre**
@@ -144,7 +147,7 @@ We calculated the average price of books across different genres.
 Observation: Some genres, like Suspense and Politics, tend to have higher average prices compared to others like Crime and Academic.
 """
 
-avg_price_genre = df.groupby('Genre')["Price (incl. tax)"].mean().sort_values(ascending=False)
+avg_price_genre = df.groupby('Genre')["Price including tax"].mean().sort_values(ascending=False)
 
 plt.figure(figsize=(12,6))
 sns.barplot(x=avg_price_genre.values, y=avg_price_genre.index, palette="viridis")
@@ -175,7 +178,7 @@ Observation: Most books are priced between £20 and £50, with a few priced high
 """
 
 plt.figure(figsize=(10,6))
-sns.histplot(df["Price (incl. tax)"], kde=True, color="blue", bins=30)
+sns.histplot(df["Price including tax"], kde=True, color="blue", bins=30)
 plt.title("Price Distribution of Books")
 plt.xlabel("Price (£)")
 plt.ylabel("Number of Books")
@@ -204,7 +207,7 @@ Observation: There is no strong correlation between book price and rating. Expen
 """
 
 plt.figure(figsize=(10,6))
-sns.scatterplot(x="Rating", y="Price (incl. tax)", data=df, hue="Genre", palette="tab10", alpha=0.7)
+sns.scatterplot(x="Rating", y="Price including tax", data=df, hue="Genre", palette="tab10", alpha=0.7)
 plt.title("Price vs. Rating of Books")
 plt.xlabel("Rating")
 plt.ylabel("Price (£)")
@@ -213,8 +216,6 @@ plt.tight_layout()
 plt.show()
 
 """# **5. Storing data on MongoDB & Streamlit**"""
-
-#!pip install pymongo streamlit
 
 import streamlit as st
 import pymongo
@@ -241,7 +242,7 @@ avg_price = avg_price.drop_duplicates(subset='Genre', keep='first')
 avg_rating = avg_rating.drop_duplicates(subset='Genre', keep='first')
 rating_dist = rating_dist.drop_duplicates(subset='Rating', keep='first')
 
-avg_rating
+avg_price
 
 st.title("Book Analysis Dashboard")
 
@@ -249,7 +250,7 @@ st.header("Books Cleaned Data")
 st.dataframe(books)
 
 st.header("Average Price per Genre")
-st.bar_chart(avg_price.set_index('Genre')['Price (incl. tax)'])
+st.bar_chart(avg_price.set_index('Genre')['Price including tax'])
 
 st.header("Average Rating per Genre")
 st.bar_chart(avg_rating.set_index('Genre')['Rating'])
