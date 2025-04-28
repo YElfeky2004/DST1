@@ -1,8 +1,7 @@
 streamlit
 pymongo
 requests
-BeautifulSoup
+beautifulsoup4
 pandas
 matplotlib
-re
 seaborn
